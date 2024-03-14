@@ -45,7 +45,7 @@ public class Estudiantes {
     }
 
     public Materia getMaterias() {
-        return materias;
+        return this.materias;
     }
 
     public void setMaterias(Materia materias) {
