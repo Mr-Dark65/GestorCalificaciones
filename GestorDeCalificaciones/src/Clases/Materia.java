@@ -6,7 +6,11 @@ import java.util.ArrayList;
  */
 public class Materia {
     private String nombre;
-
+    
+    public Materia(){
+        
+    }
+    
     public Materia(String nombre) {
         this.nombre = nombre;
     }

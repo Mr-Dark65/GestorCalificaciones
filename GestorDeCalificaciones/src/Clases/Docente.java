@@ -1,20 +1,27 @@
 package Clases;
+
 import java.util.ArrayList;
+
 /**
  *
  * @author USER
  */
 public class Docente {
+
     private String nombre;
     private String apellido;
     private String cedula;
-    private String materia;
+    private ArrayList<String> materias;
 
-    public Docente(String nombre, String apellido, String cedula, String materia) {
+    public Docente() {
+        materias = new ArrayList<>();
+    }
+
+    public Docente(String nombre, String apellido, String cedula, ArrayList<String> materias) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
-        this.materia = materia;
+        this.materias = materias;
     }
 
     // Getters y setters
@@ -42,11 +49,11 @@ public class Docente {
         this.cedula = cedula;
     }
 
-    public String getMateria() {
-        return materia;
+    public ArrayList<String> getMaterias() {
+        return materias;
     }
 
-    public void setMateria(String materia) {
-        this.materia = materia;
+    public void agregarMateria(String materia) {
+        materias.add(materia);
     }
 }
