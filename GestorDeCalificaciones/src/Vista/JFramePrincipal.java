@@ -357,7 +357,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         Panel_Registro.setBackground(new Color(255,255,255));
     }//GEN-LAST:event_Panel_RegistroMouseExited
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
     private void Panel_EstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_EstudiantesMouseClicked
         // TODO add your handling code here:
         JFrameEstudiantes estudiantes = new JFrameEstudiantes();
@@ -380,7 +380,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         docente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_IconProfesorMouseClicked
-=======
+//=======
     private void Panel_CalificacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_CalificacionesMouseClicked
         frmRegProf reg = new frmRegProf();
         reg.setVisible(true);
@@ -392,7 +392,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         reg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_IconCalificacionMouseClicked
->>>>>>> Calificaciones
+//>>>>>>> Calificaciones
 
     /**
      * @param args the command line arguments
