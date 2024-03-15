@@ -4,9 +4,9 @@
  */
 package Vista;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import Clases.Almacen;
+import Clases.Docente;
+import Clases.Materia;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,64 +14,76 @@ import javax.swing.JOptionPane;
  * @author USER
  */
 public class JFrameDocente extends javax.swing.JFrame {
-private ArrayList<String> informacion = new ArrayList<>();
-private ArrayList<String> materias = new ArrayList<>();
+
     /**
      * Creates new form Docente
      */
     public JFrameDocente() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
-public boolean verificarCedula(String cedula) {
-    if (cedula.length() != 10) {
-        return false;
-    }
-    for (int i = 0; i < cedula.length(); i++) {
-        if (!Character.isDigit(cedula.charAt(i))) {
+
+    public boolean verificarCedula(String cedula) {
+        if (cedula.length() != 10) {
             return false;
         }
-    }
-    int suma = 0;
-    for (int i = 0; i < 9; i++) {
-        int digito = Character.getNumericValue(cedula.charAt(i));
-        if (i % 2 == 0) {
-            digito *= 2;
-            if (digito > 9) {
-                digito -= 9;
+        for (int i = 0; i < cedula.length(); i++) {
+            if (!Character.isDigit(cedula.charAt(i))) {
+                return false;
             }
         }
-        suma += digito;
-    }
-    int ultimoDigito = Character.getNumericValue(cedula.charAt(9));
-    int digitoVerificador = (suma % 10 == 0) ? 0 : (10 - (suma % 10));
-    
-    return ultimoDigito == digitoVerificador;
-}
-public boolean verificarDocenteMateria(String nombre, String materia) {
-    for (int i = 0; i < informacion.size(); i += 4) {
-        String nombreRegistrado = informacion.get(i);
-        String materiaRegistrada = informacion.get(i + 3);
-        if (nombre.equalsIgnoreCase(nombreRegistrado) && materia.equalsIgnoreCase(materiaRegistrada)) {
-            return true; 
+        int suma = 0;
+        for (int i = 0; i < 9; i++) {
+            int digito = Character.getNumericValue(cedula.charAt(i));
+            if (i % 2 == 0) {
+                digito *= 2;
+                if (digito > 9) {
+                    digito -= 9;
+                }
+            }
+            suma += digito;
         }
+        int ultimoDigito = Character.getNumericValue(cedula.charAt(9));
+        int digitoVerificador = (suma % 10 == 0) ? 0 : (10 - (suma % 10));
+
+        return ultimoDigito == digitoVerificador;
     }
-    return false; 
-}
-public boolean validarCampos(String nombre, String apellido, String cedula, String materia) {
-    if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty() || materia.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+
+    public boolean verificarDocenteMateria(String nombre, String materia) {
+        Almacen almacen = Almacen.getInstance();
+
+        // Iterar sobre la lista de docentes en la instancia de Almacen
+        for (Docente docente : almacen.informacion) {
+            // Verificar si el nombre del docente coincide
+            if (docente.getNombre().equalsIgnoreCase(nombre)) {
+                // Iterar sobre las materias del docente y verificar si coincide con la materia buscada
+                for (String materiaRegistrada : docente.getMaterias()) {
+                    if (materiaRegistrada.equalsIgnoreCase(materia)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        // Si no se encuentra coincidencia, retornar falso
         return false;
     }
-    if (!cedula.matches("[0-9]+")) {
-        JOptionPane.showMessageDialog(this, "La cédula debe contener solo números.", "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
+
+    public boolean validarCampos(String nombre, String apellido, String cedula, String materia) {
+        if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty() || materia.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (!cedula.matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(this, "La cédula debe contener solo números.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (!nombre.matches("[a-zA-Z]+") || !apellido.matches("[a-zA-Z]+") || !materia.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(this, "Los campos de nombre, apellido y materia deben contener solo letras.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
-    if (!nombre.matches("[a-zA-Z]+") || !apellido.matches("[a-zA-Z]+") || !materia.matches("[a-zA-Z]+")) {
-        JOptionPane.showMessageDialog(this, "Los campos de nombre, apellido y materia deben contener solo letras.", "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-    return true; 
-}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -241,36 +253,53 @@ public boolean validarCampos(String nombre, String apellido, String cedula, Stri
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nombreActionPerformed
-        
+
     }//GEN-LAST:event_txt_nombreActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+
+        // Crear un objeto Docente
+        Docente docente = new Docente();
         String nombre = txt_nombre.getText();
         String apellido = txt_apellido.getText();
         String cedula = txt_cedula.getText();
         String materia = txt_materia.getText();
-        if (!validarCampos(nombre, apellido, cedula, materia)) {
-        }else if (verificarDocenteMateria(nombre, materia)) {
-        JOptionPane.showMessageDialog(this, "El docente ya está registrado con la misma materia.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!verificarCedula(cedula)) {
-        JOptionPane.showMessageDialog(this, "La cédula ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (materias.contains(materia)) {
-        JOptionPane.showMessageDialog(this, "La materia ya ha sido ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
 
-        informacion.add(nombre);
-        informacion.add(apellido);
-        informacion.add(cedula);
-        informacion.add(materia);
-        materias.add(materia);
-        txt_nombre.setText("");
-        txt_apellido.setText("");
-        txt_cedula.setText("");
-        txt_materia.setText("");
-    }    
+        // Validar los campos
+        if (!validarCampos(nombre, apellido, cedula, materia)) {
+            // Mostrar mensaje de error si los campos no son válidos
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (verificarDocenteMateria(nombre, materia)) {
+            // Mostrar mensaje de error si el docente ya está registrado con la misma materia
+            JOptionPane.showMessageDialog(this, "El docente ya está registrado con la misma materia.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!verificarCedula(cedula)) {
+            // Mostrar mensaje de error si la cédula no es válida
+            JOptionPane.showMessageDialog(this, "La cédula ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (Almacen.getInstance().materias.contains(materia)) {
+            // Mostrar mensaje de error si la materia ya ha sido ingresada
+            JOptionPane.showMessageDialog(this, "La materia ya ha sido ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Agregar los datos al objeto Docente y Materia, y guardarlos en el almacen
+            docente.setNombre(nombre);
+            docente.setApellido(apellido);
+            docente.setCedula(cedula);
+            docente.agregarMateria(materia);
+            Materia nuevaMateria = new Materia(materia);
+            Almacen.getInstance().materias.add(nuevaMateria);
+            Almacen.getInstance().informacion.add(docente);
+
+            // Limpiar los campos de texto
+            txt_nombre.setText("");
+            txt_apellido.setText("");
+            txt_cedula.setText("");
+            txt_materia.setText("");
+        }
+
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        JFramePrincipal principal = new JFramePrincipal();
+        principal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
 

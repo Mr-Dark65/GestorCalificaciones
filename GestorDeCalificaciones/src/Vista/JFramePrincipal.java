@@ -100,6 +100,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         IconProfesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/profesor (2).png"))); // NOI18N
         IconProfesor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IconProfesorMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 IconProfesorMouseEntered(evt);
             }
@@ -117,7 +120,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addGroup(Panel_ProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbProfesor)
                     .addComponent(IconProfesor))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_ProfesorLayout.setVerticalGroup(
             Panel_ProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,6 +138,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         Panel_Estudiantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Panel_Estudiantes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Panel_Estudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Panel_EstudiantesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Panel_EstudiantesMouseEntered(evt);
             }
@@ -145,6 +151,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         IconEstudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/estudiantes.png"))); // NOI18N
         IconEstudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IconEstudiantesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 IconEstudiantesMouseEntered(evt);
             }
@@ -165,7 +174,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
                     .addGroup(Panel_EstudiantesLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(IconEstudiantes)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_EstudiantesLayout.setVerticalGroup(
             Panel_EstudiantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,6 +192,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         Panel_Calificaciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Panel_Calificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Panel_Calificaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Panel_CalificacionesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Panel_CalificacionesMouseEntered(evt);
             }
@@ -193,6 +205,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         IconCalificacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/notas.png"))); // NOI18N
         IconCalificacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IconCalificacionMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 IconCalificacionMouseEntered(evt);
             }
@@ -208,11 +223,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
             .addGroup(Panel_CalificacionesLayout.createSequentialGroup()
                 .addGroup(Panel_CalificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Panel_CalificacionesLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(IconCalificacion))
-                    .addGroup(Panel_CalificacionesLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lbCalificacion)))
+                        .addComponent(lbCalificacion))
+                    .addGroup(Panel_CalificacionesLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(IconCalificacion)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_CalificacionesLayout.setVerticalGroup(
@@ -248,7 +263,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         });
 
         lbRegistro.setForeground(new java.awt.Color(51, 51, 51));
-        lbRegistro.setText("Agregar Registro");
+        lbRegistro.setText(" Registro");
 
         javax.swing.GroupLayout Panel_RegistroLayout = new javax.swing.GroupLayout(Panel_Registro);
         Panel_Registro.setLayout(Panel_RegistroLayout);
@@ -258,7 +273,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(Panel_RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(IconRegistro)
-                    .addComponent(lbRegistro))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_RegistroLayout.createSequentialGroup()
+                        .addComponent(lbRegistro)
+                        .addGap(17, 17, 17)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         Panel_RegistroLayout.setVerticalGroup(
@@ -311,11 +328,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void IconCalificacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconCalificacionMouseEntered
         // TODO add your handling code here:
         Panel_Calificaciones.setBackground(new Color(153,153,153));
+        
     }//GEN-LAST:event_IconCalificacionMouseEntered
 
     private void Panel_CalificacionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_CalificacionesMouseEntered
         // TODO add your handling code here:
         Panel_Calificaciones.setBackground(new Color(153,153,153));
+        
     }//GEN-LAST:event_Panel_CalificacionesMouseEntered
 
     private void Panel_CalificacionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_CalificacionesMouseExited
@@ -337,6 +356,43 @@ public class JFramePrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Panel_Registro.setBackground(new Color(255,255,255));
     }//GEN-LAST:event_Panel_RegistroMouseExited
+
+//<<<<<<< HEAD
+    private void Panel_EstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_EstudiantesMouseClicked
+        // TODO add your handling code here:
+        JFrameEstudiantes estudiantes = new JFrameEstudiantes();
+        
+        estudiantes.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Panel_EstudiantesMouseClicked
+
+    private void IconEstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconEstudiantesMouseClicked
+        // TODO add your handling code here:
+        JFrameEstudiantes estudiantes = new JFrameEstudiantes();
+        
+        estudiantes.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_IconEstudiantesMouseClicked
+
+    private void IconProfesorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconProfesorMouseClicked
+        // TODO add your handling code here:
+        JFrameDocente docente = new JFrameDocente();
+        docente.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_IconProfesorMouseClicked
+//=======
+    private void Panel_CalificacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_CalificacionesMouseClicked
+        frmRegProf reg = new frmRegProf();
+        reg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Panel_CalificacionesMouseClicked
+
+    private void IconCalificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconCalificacionMouseClicked
+       frmRegProf reg = new frmRegProf();
+        reg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_IconCalificacionMouseClicked
+//>>>>>>> Calificaciones
 
     /**
      * @param args the command line arguments
