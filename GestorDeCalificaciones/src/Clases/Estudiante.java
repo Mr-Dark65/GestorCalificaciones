@@ -17,11 +17,15 @@ public class Estudiante {
     private String cedula;
     private ArrayList<String> materia;
     
-    public Estudiante(String nombre, String apellido, String cedula) {
+    public Estudiante(){
+        materia = new ArrayList<>();
+    }
+    
+    public Estudiante(String nombre, String apellido, String cedula, ArrayList<String> materia) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
-        this.materia = new ArrayList<>();
+        this.materia = materia;
     }
     
     public String getNombre() {
@@ -52,8 +56,8 @@ public class Estudiante {
         return this.materia;
     }
 
-    public void setMateria(ArrayList<String> materia) {
-        this.materia = materia;
+    public void agregarMateria(String materias) {
+        materia.add(materias);
     }
     
     

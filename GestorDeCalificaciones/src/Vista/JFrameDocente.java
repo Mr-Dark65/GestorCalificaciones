@@ -7,9 +7,6 @@ package Vista;
 import Clases.Almacen;
 import Clases.Docente;
 import Clases.Materia;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,13 +15,12 @@ import javax.swing.JOptionPane;
  */
 public class JFrameDocente extends javax.swing.JFrame {
 
-    //private ArrayList<String> informacion = new ArrayList<>();
-    //private ArrayList<String> materias = new ArrayList<>();
     /**
      * Creates new form Docente
      */
     public JFrameDocente() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     public boolean verificarCedula(String cedula) {
@@ -269,7 +265,7 @@ public class JFrameDocente extends javax.swing.JFrame {
         String cedula = txt_cedula.getText();
         String materia = txt_materia.getText();
 
-// Validar los campos
+        // Validar los campos
         if (!validarCampos(nombre, apellido, cedula, materia)) {
             // Mostrar mensaje de error si los campos no son válidos
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -302,6 +298,8 @@ public class JFrameDocente extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        JFramePrincipal principal = new JFramePrincipal();
+        principal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
 

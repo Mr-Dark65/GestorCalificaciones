@@ -4,6 +4,12 @@
  */
 package Vista;
 
+import Clases.Almacen;
+import Clases.Controles;
+import Clases.Estudiante;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author thexe
@@ -13,8 +19,14 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
     /**
      * Creates new form JFrameEstudiantes
      */
+    public Controles control = new Controles();
+    public Estudiante estudiante = new Estudiante();
+
     public JFrameEstudiantes() {
         initComponents();
+        this.setLocationRelativeTo(null);
+
+        cargarMaterias();
     }
 
     /**
@@ -37,11 +49,12 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
         lbCedula = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jtxtCedula = new javax.swing.JTextField();
+        jtxtNombre = new javax.swing.JTextField();
+        jtxtApellido = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,7 +95,6 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
         lbMateria.setText("Materia:");
         jPanel1.add(lbMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 115, -1, -1));
 
-        cbMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(cbMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 150, -1));
 
         lbNombre.setText("Nombre:");
@@ -102,35 +114,66 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
         });
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, -1));
 
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Regresar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, -1, -1));
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 160, 25));
+        jtxtCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jtxtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 160, 25));
 
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 160, 25));
+        jtxtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jtxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 160, 25));
 
-        jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 160, 25));
+        jtxtApellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jtxtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 160, 25));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 544, 471));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+        
+        String materia = this.cbMateria.getSelectedItem().toString();
+        String nombre = this.jtxtNombre.getText();
+        String apellido = this.jtxtApellido.getText();
+        String cedula = this.jtxtCedula.getText();
+
+        if (!control.validarCamposEstudiante(nombre, apellido, cedula, materia)) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (control.verificarCedulaDocente(cedula)) {
+            // Mostrar mensaje de error si el docente ya está registrado con la misma materia
+            JOptionPane.showMessageDialog(this, "La cedula pertenece a un Docente", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!control.verificarCedula(cedula)) {
+            JOptionPane.showMessageDialog(this, "La cédula ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (control.verificarEstudianteMateria(cedula, materia)) {
+            JOptionPane.showMessageDialog(this, "El estudiante ya está matriculado en la misma materia.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            estudiante.agregarMateria(materia);
+            estudiante.setNombre(nombre);
+            estudiante.setApellido(apellido);
+            estudiante.setCedula(cedula);
+
+            Almacen.getInstance().estudiantes.add(estudiante);
+            this.cbMateria.removeItem(materia);
+
+        }
+
+
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        JFramePrincipal principal = new JFramePrincipal();
+        principal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,12 +218,18 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jtxtApellido;
+    private javax.swing.JTextField jtxtCedula;
+    private javax.swing.JTextField jtxtNombre;
     private javax.swing.JLabel lbApellido;
     private javax.swing.JLabel lbCedula;
     private javax.swing.JLabel lbMateria;
     private javax.swing.JLabel lbNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarMaterias() {
+        for (int i = 0; i < Almacen.getInstance().materias.size(); i++) {
+            this.cbMateria.addItem(Almacen.getInstance().materias.get(i).getNombre());
+        }
+    }
 }

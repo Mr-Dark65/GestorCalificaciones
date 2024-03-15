@@ -100,6 +100,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         IconProfesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/profesor (2).png"))); // NOI18N
         IconProfesor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IconProfesorMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 IconProfesorMouseEntered(evt);
             }
@@ -135,6 +138,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         Panel_Estudiantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Panel_Estudiantes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Panel_Estudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Panel_EstudiantesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Panel_EstudiantesMouseEntered(evt);
             }
@@ -145,6 +151,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         IconEstudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/estudiantes.png"))); // NOI18N
         IconEstudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IconEstudiantesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 IconEstudiantesMouseEntered(evt);
             }
@@ -337,6 +346,29 @@ public class JFramePrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Panel_Registro.setBackground(new Color(255,255,255));
     }//GEN-LAST:event_Panel_RegistroMouseExited
+
+    private void Panel_EstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_EstudiantesMouseClicked
+        // TODO add your handling code here:
+        JFrameEstudiantes estudiantes = new JFrameEstudiantes();
+        
+        estudiantes.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Panel_EstudiantesMouseClicked
+
+    private void IconEstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconEstudiantesMouseClicked
+        // TODO add your handling code here:
+        JFrameEstudiantes estudiantes = new JFrameEstudiantes();
+        
+        estudiantes.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_IconEstudiantesMouseClicked
+
+    private void IconProfesorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconProfesorMouseClicked
+        // TODO add your handling code here:
+        JFrameDocente docente = new JFrameDocente();
+        docente.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_IconProfesorMouseClicked
 
     /**
      * @param args the command line arguments
