@@ -5,22 +5,33 @@ import java.util.ArrayList;
  * @author USER
  */
 public class Materia {
-    private String nombre;
+    private String nombreMateria;
+    private ArrayList<Estudiante> estudiante;
     
     public Materia(){
         
     }
-    
+
     public Materia(String nombre) {
-        this.nombre = nombre;
+        this.nombreMateria = nombre;
+        this.estudiante = new ArrayList<>();
     }
 
     // Getter y setter
     public String getNombre() {
-        return nombre;
+        return nombreMateria;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombreMateria = nombre;
     }
+
+    public ArrayList<Estudiante> getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante.add(estudiante);
+    }
+    
 }

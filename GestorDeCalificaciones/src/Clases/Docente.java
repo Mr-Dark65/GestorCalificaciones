@@ -11,17 +11,17 @@ public class Docente {
     private String nombre;
     private String apellido;
     private String cedula;
-    private ArrayList<String> materias;
+    private ArrayList<Materia> materias;
 
     public Docente() {
         materias = new ArrayList<>();
     }
 
-    public Docente(String nombre, String apellido, String cedula, ArrayList<String> materias) {
+    public Docente(String nombre, String apellido, String cedula) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
-        this.materias = materias;
+        this.materias =new ArrayList<>();
     }
 
     // Getters y setters
@@ -49,11 +49,11 @@ public class Docente {
         this.cedula = cedula;
     }
 
-    public ArrayList<String> getMaterias() {
+    public ArrayList<Materia> getMaterias() {
         return materias;
     }
 
-    public void agregarMateria(String materia) {
+    public void agregarMateria(Materia materia) {
         materias.add(materia);
     }
 }

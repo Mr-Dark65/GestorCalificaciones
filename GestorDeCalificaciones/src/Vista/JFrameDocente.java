@@ -57,8 +57,8 @@ public class JFrameDocente extends javax.swing.JFrame {
             // Verificar si el nombre del docente coincide
             if (docente.getNombre().equalsIgnoreCase(nombre)) {
                 // Iterar sobre las materias del docente y verificar si coincide con la materia buscada
-                for (String materiaRegistrada : docente.getMaterias()) {
-                    if (materiaRegistrada.equalsIgnoreCase(materia)) {
+                for (Materia materiaRegistrada : docente.getMaterias()) {
+                    if (materiaRegistrada.getNombre().equalsIgnoreCase(materia)) {
                         return true;
                     }
                 }
@@ -259,11 +259,11 @@ public class JFrameDocente extends javax.swing.JFrame {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
 
         // Crear un objeto Docente
-        Docente docente = new Docente();
-        String nombre = txt_nombre.getText();
-        String apellido = txt_apellido.getText();
+        
+        String nombre = txt_nombre.getText().toUpperCase();
+        String apellido = txt_apellido.getText().toUpperCase();
         String cedula = txt_cedula.getText();
-        String materia = txt_materia.getText();
+        String materia = txt_materia.getText().toUpperCase();
 
         // Validar los campos
         if (!validarCampos(nombre, apellido, cedula, materia)) {
@@ -280,19 +280,28 @@ public class JFrameDocente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La materia ya ha sido ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             // Agregar los datos al objeto Docente y Materia, y guardarlos en el almacen
-            docente.setNombre(nombre);
-            docente.setApellido(apellido);
-            docente.setCedula(cedula);
-            docente.agregarMateria(materia);
-            Materia nuevaMateria = new Materia(materia);
-            Almacen.getInstance().materias.add(nuevaMateria);
-            Almacen.getInstance().informacion.add(docente);
+            Docente docenteExistente = buscarDocente(cedula);
 
-            // Limpiar los campos de texto
-            txt_nombre.setText("");
-            txt_apellido.setText("");
-            txt_cedula.setText("");
-            txt_materia.setText("");
+            if (docenteExistente == null) {
+                System.out.println("Nuevo");
+                Docente docente = new Docente();
+                docente.setNombre(nombre);
+                docente.setApellido(apellido);
+                docente.setCedula(cedula);
+                docente.agregarMateria(new Materia(materia));
+                Almacen.getInstance().informacion.add(docente);
+                System.out.println("Tamaño de docentes:" + Almacen.getInstance().informacion.size());
+                System.out.println("Se agrego la materia: " + materia);
+                System.out.println("Tamaño del array de materias: " + docente.getMaterias().size());
+                limpiarCampos();
+            }else{
+                System.out.println("Existente");
+                docenteExistente.agregarMateria(new Materia(materia));
+                System.out.println("Se agrego la materia: " + materia);
+                System.out.println("Tamaño de docentes:" + Almacen.getInstance().informacion.size());
+                System.out.println("Tamaño del array de materias: " + docenteExistente.getMaterias().size());
+                limpiarCampos();
+            }
         }
 
     }//GEN-LAST:event_btn_guardarActionPerformed
@@ -358,4 +367,20 @@ public class JFrameDocente extends javax.swing.JFrame {
     private javax.swing.JTextField txt_materia;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarCampos() {
+        txt_nombre.setText("");
+        txt_apellido.setText("");
+        txt_cedula.setText("");
+        txt_materia.setText("");
+    }
+
+    private Docente buscarDocente(String cedula) {
+        for (Docente doce : Almacen.getInstance().informacion) {
+            if (doce.getCedula().equals(cedula)) {
+                return doce;
+            }
+        }
+        return null;
+    }
 }
