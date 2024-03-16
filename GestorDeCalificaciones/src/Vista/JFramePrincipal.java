@@ -382,13 +382,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_IconProfesorMouseClicked
 //=======
     private void Panel_CalificacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_CalificacionesMouseClicked
-        frmRegProf reg = new frmRegProf();
-        reg.setVisible(true);
-        this.dispose();
+     
     }//GEN-LAST:event_Panel_CalificacionesMouseClicked
 
     private void IconCalificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconCalificacionMouseClicked
-       frmRegProf reg = new frmRegProf();
+       frmRegProfesor reg = new frmRegProfesor();
         reg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_IconCalificacionMouseClicked

@@ -1,8 +1,13 @@
 package Vista;
-import Utilidades.*;
-public class frmRegProf extends javax.swing.JFrame {
 
-     public frmRegProf() {
+import Clases.Almacen;
+import Utilidades.*;
+import javax.swing.JOptionPane;
+
+public class frmRegProfesor extends javax.swing.JFrame {
+    public String cedula;
+    
+    public frmRegProfesor() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -15,13 +20,13 @@ public class frmRegProf extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmRegProf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmRegProf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmRegProf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmRegProf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         initComponents();
@@ -110,6 +115,11 @@ public class frmRegProf extends javax.swing.JFrame {
         btIngresar.setBackground(new java.awt.Color(176, 16, 37));
         btIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btIngresar.setText("Ingresar");
+        btIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btIngresarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 368, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/flecha-pequena-izquierda.png"))); // NOI18N
@@ -126,14 +136,30 @@ public class frmRegProf extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void IconCalificacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconCalificacionMouseEntered
-      
+
     }//GEN-LAST:event_IconCalificacionMouseEntered
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-    JFramePrincipal prin = new JFramePrincipal();
-    prin.setVisible(true);
-    this.dispose();
+        JFramePrincipal prin = new JFramePrincipal();
+        prin.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void btIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIngresarActionPerformed
+        if (!(this.jContra.getText().equals(""))) {
+            boolean aux = buscarCedual(this.jContra.getText());
+            if (aux == true) {
+                cedula=this.jContra.getText();
+                JOptionPane.showMessageDialog(null, "Bienvenido");
+                frmRegCalifi cali = new frmRegCalifi(cedula);
+                cali.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Cédula Incorrecta");
+
+            }
+        }
+    }//GEN-LAST:event_btIngresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraSuperior;
@@ -149,4 +175,14 @@ public class frmRegProf extends javax.swing.JFrame {
     private javax.swing.JLabel lbCalificacion;
     private javax.swing.JLabel lbCalificacion1;
     // End of variables declaration//GEN-END:variables
+
+    public boolean buscarCedual(String cedula) {
+        System.out.println(cedula);
+        for (int i = 0; i < Almacen.getInstance().informacion.size(); i++) {
+            if (Almacen.getInstance().informacion.get(i).getCedula().equals(cedula)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

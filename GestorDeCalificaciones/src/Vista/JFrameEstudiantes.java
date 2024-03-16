@@ -6,7 +6,10 @@ package Vista;
 
 import Clases.Almacen;
 import Clases.Controles;
+import Clases.Docente;
 import Clases.Estudiante;
+import Clases.Materia;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -20,7 +23,7 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
      * Creates new form JFrameEstudiantes
      */
     public Controles control = new Controles();
-    public Estudiante estudiante = new Estudiante();
+//    public Estudiante estudiante = new Estudiante();
 
     public JFrameEstudiantes() {
         initComponents();
@@ -138,10 +141,10 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        
+
         String materia = this.cbMateria.getSelectedItem().toString();
-        String nombre = this.jtxtNombre.getText();
-        String apellido = this.jtxtApellido.getText();
+        String nombre = this.jtxtNombre.getText().toUpperCase();
+        String apellido = this.jtxtApellido.getText().toUpperCase();
         String cedula = this.jtxtCedula.getText();
 
         if (!control.validarCamposEstudiante(nombre, apellido, cedula, materia)) {
@@ -154,15 +157,27 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
         } else if (control.verificarEstudianteMateria(cedula, materia)) {
             JOptionPane.showMessageDialog(this, "El estudiante ya está matriculado en la misma materia.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            boolean aux = comprobarExisteEstudiante(cedula, materia);
+            Materia mate = obtenerMateriaPorNombre(materia);
+            if (aux == false) {
+                Estudiante estudiante = new Estudiante();
+                estudiante.setNombre(nombre);
+                estudiante.setApellido(apellido);
+                estudiante.setCedula(cedula);
+                mate.setEstudiante(estudiante);
+                JOptionPane.showMessageDialog(this, "Estudiante agregado correctamente a la materia.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCamposEstudiante();
+            } else {
+                JOptionPane.showMessageDialog(this, "El Estudiante ya se encuentra agregado  a la materia.", "Falla", JOptionPane.INFORMATION_MESSAGE);
 
-            estudiante.agregarMateria(materia);
-            estudiante.setNombre(nombre);
-            estudiante.setApellido(apellido);
-            estudiante.setCedula(cedula);
-
-            Almacen.getInstance().estudiantes.add(estudiante);
-            this.cbMateria.removeItem(materia);
-
+            }
+//            estudiante.agregarMateria(materia);
+//            estudiante.setNombre(nombre);
+//            estudiante.setApellido(apellido);
+//            estudiante.setCedula(cedula);
+//
+//            Almacen.getInstance().estudiantes.add(estudiante);
+//            this.cbMateria.removeItem(materia);
         }
 
 
@@ -228,8 +243,46 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarMaterias() {
-        for (int i = 0; i < Almacen.getInstance().materias.size(); i++) {
-            this.cbMateria.addItem(Almacen.getInstance().materias.get(i).getNombre());
+        System.out.println("MATERIAS DISPONIBLES" + Almacen.getInstance().materias.size());
+        for (Docente doce : Almacen.getInstance().informacion) {
+            ArrayList<Materia> materias = doce.getMaterias();
+            for (Materia materia : materias) {
+                cbMateria.addItem(materia.getNombre());
+            }
         }
     }
+
+    private boolean comprobarExisteEstudiante(String cedula, String materia) {
+        for (Docente doc : Almacen.getInstance().informacion) {
+            for (Materia materias : doc.getMaterias()) {
+                if (materias.getNombre().equals(materia)) {
+                    for (Estudiante estud : materias.getEstudiante()) {
+                        if (estud.getCedula().equals(cedula)) {
+                            return true;
+                        }
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+
+    private Materia obtenerMateriaPorNombre(String nombreMateria) {
+        for (Docente docente : Almacen.getInstance().informacion) {
+            for (Materia materia : docente.getMaterias()) {
+                if (materia.getNombre().equalsIgnoreCase(nombreMateria)) {
+                    return materia;
+                }
+            }
+        }
+        return null; // Retornar null si no se encuentra la materia
+    }
+
+    private void limpiarCamposEstudiante() {
+        jtxtNombre.setText("");
+        jtxtApellido.setText("");
+        jtxtCedula.setText("");
+    }
+
 }
