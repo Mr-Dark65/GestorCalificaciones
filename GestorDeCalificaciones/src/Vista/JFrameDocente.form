@@ -54,7 +54,7 @@
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="txt_materia" min="-2" pref="128" max="-2" attributes="0"/>
-                          <Component id="txt_cedula" min="-2" pref="128" max="-2" attributes="0"/>
+                          <Component id="txtCedula" min="-2" pref="128" max="-2" attributes="0"/>
                           <Component id="txt_apellido" min="-2" pref="128" max="-2" attributes="0"/>
                           <Component id="txt_nombre" min="-2" pref="128" max="-2" attributes="0"/>
                       </Group>
@@ -91,7 +91,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txt_cedula" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCedula" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txt_materia" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -160,7 +160,10 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txt_apellido">
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_cedula">
+    <Component class="javax.swing.JTextField" name="txtCedula">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCedulaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_materia">
     </Component>

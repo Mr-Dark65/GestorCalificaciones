@@ -6,6 +6,7 @@ package Clases;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -145,11 +146,31 @@ public class Controles {
 
     }
 
-    public void txtOnlyDoubles(java.awt.event.KeyEvent evt) {
-        char c = evt.getKeyChar();
-        if (!(Character.isDigit(c) || c == '.')) {
+   public void TypingNumsDec(JTextField txt, java.awt.event.KeyEvent evt) {
+
+        char caracter = evt.getKeyChar();
+        if (!(caracter >= '0' && caracter <= '9') && caracter != '.') {
             evt.consume();
         }
+        if (txt.getText().contains(".") && caracter == '.') {
+            evt.consume();
+        }
+        if (txt.getText().contains(".")) {
+            if (txt.getText().length() > txt.getText().indexOf(".") + 2) {
+                evt.consume();
+            }
+            if (!(txt.getText().matches("^\\d+(\\.\\d{0,1})?$"))) {
+                evt.consume();
+            }
+        }
+
+    }
+      public boolean txtOnlyNumbers(java.awt.event.KeyEvent evt) {
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+            return false;
+        }
+        return true;
     }
 
 }

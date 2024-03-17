@@ -5,6 +5,7 @@
 package Vista;
 
 import Clases.Almacen;
+import Clases.Controles;
 import Clases.Docente;
 import Clases.Materia;
 import javax.swing.JOptionPane;
@@ -14,10 +15,8 @@ import javax.swing.JOptionPane;
  * @author USER
  */
 public class JFrameDocente extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Docente
-     */
+    Controles control = new Controles();
+    
     public JFrameDocente() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -100,7 +99,7 @@ public class JFrameDocente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txt_nombre = new javax.swing.JTextField();
         txt_apellido = new javax.swing.JTextField();
-        txt_cedula = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
         txt_materia = new javax.swing.JTextField();
         btn_guardar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
@@ -130,6 +129,12 @@ public class JFrameDocente extends javax.swing.JFrame {
         txt_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_nombreActionPerformed(evt);
+            }
+        });
+
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
             }
         });
 
@@ -207,7 +212,7 @@ public class JFrameDocente extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txt_materia, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(124, 164, Short.MAX_VALUE))
@@ -234,7 +239,7 @@ public class JFrameDocente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txt_materia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -259,10 +264,9 @@ public class JFrameDocente extends javax.swing.JFrame {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
 
         // Crear un objeto Docente
-        
         String nombre = txt_nombre.getText().toUpperCase();
         String apellido = txt_apellido.getText().toUpperCase();
-        String cedula = txt_cedula.getText();
+        String cedula = txtCedula.getText();
         String materia = txt_materia.getText().toUpperCase();
 
         // Validar los campos
@@ -311,6 +315,14 @@ public class JFrameDocente extends javax.swing.JFrame {
         principal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+         control.txtOnlyNumbers(evt);
+        if (txtCedula.getText().length() >= 10) {
+            evt.consume();
+            
+        }
+    }//GEN-LAST:event_txtCedulaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -362,8 +374,8 @@ public class JFrameDocente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txt_apellido;
-    private javax.swing.JTextField txt_cedula;
     private javax.swing.JTextField txt_materia;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
@@ -371,7 +383,7 @@ public class JFrameDocente extends javax.swing.JFrame {
     private void limpiarCampos() {
         txt_nombre.setText("");
         txt_apellido.setText("");
-        txt_cedula.setText("");
+        txtCedula.setText("");
         txt_materia.setText("");
     }
 

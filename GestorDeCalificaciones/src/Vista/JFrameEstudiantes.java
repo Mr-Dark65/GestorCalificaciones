@@ -126,6 +126,11 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, -1, -1));
 
         jtxtCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jtxtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtCedulaKeyTyped(evt);
+            }
+        });
         jPanel1.add(jtxtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 160, 25));
 
         jtxtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -189,6 +194,14 @@ public class JFrameEstudiantes extends javax.swing.JFrame {
         principal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void jtxtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCedulaKeyTyped
+        control.txtOnlyNumbers(evt);
+        if (jtxtCedula.getText().length() >= 10) {
+            evt.consume();
+
+        }
+    }//GEN-LAST:event_jtxtCedulaKeyTyped
 
     /**
      * @param args the command line arguments

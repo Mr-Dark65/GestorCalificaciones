@@ -8,6 +8,7 @@ import Clases.Materia;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class frmRegCalifi extends javax.swing.JFrame {
     private String cedulaProfeActual;
@@ -63,7 +64,7 @@ public class frmRegCalifi extends javax.swing.JFrame {
             }
 
         });
-
+        
     }
 
     private void cbMateriasDoceActionPerformed(ActionEvent evt) {
@@ -200,6 +201,11 @@ public class frmRegCalifi extends javax.swing.JFrame {
                 txtNotaActionPerformed(evt);
             }
         });
+        txtNota.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNotaKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 96, 32));
 
         btAceptarAggCal.setBackground(new java.awt.Color(176, 16, 37));
@@ -266,10 +272,10 @@ public class frmRegCalifi extends javax.swing.JFrame {
 
     private void btAceptarAggCalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarAggCalActionPerformed
 
-        if (!control.validarNota(txtNota.getText())) {
-            return;
-        }
-        if (!control.validarFecha(txtFecha.getText())) {
+        if (!control.validarNota(txtNota.getText()) || !control.validarFecha(txtFecha.getText()) ) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+            txtNota.setText("");
+            txtFecha.setText("");
             return;
         }
         Almacen.getInstance().informacion.get(this.posProfeAlmacen).
@@ -281,7 +287,7 @@ public class frmRegCalifi extends javax.swing.JFrame {
                 getMaterias().get(cbMateriasDoce.getSelectedIndex()).
                 getEstudiante().get(cbEstudiantes.getSelectedIndex()).
                 setFecha(txtFecha.getText());
-        System.out.println("fwchita");
+        System.out.println("fechita");
 
         System.out.println(Almacen.getInstance().informacion.get(this.posProfeAlmacen).
                 getMaterias().get(cbMateriasDoce.getSelectedIndex()).
@@ -291,6 +297,11 @@ public class frmRegCalifi extends javax.swing.JFrame {
     private void cbEstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbEstudiantesMouseClicked
         System.out.println(cbEstudiantes.getSelectedIndex());
     }//GEN-LAST:event_cbEstudiantesMouseClicked
+
+    private void txtNotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNotaKeyTyped
+        control.TypingNumsDec(txtNota, evt);
+        
+    }//GEN-LAST:event_txtNotaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraSuperior;
