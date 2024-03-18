@@ -1,12 +1,15 @@
 package Vista;
 
 import Clases.Almacen;
+import Clases.Controles;
 import Utilidades.*;
 import javax.swing.JOptionPane;
 
 public class frmRegProfesor extends javax.swing.JFrame {
+
+    Controles control = new Controles();
     public String cedula;
-    
+
     public frmRegProfesor() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -31,7 +34,7 @@ public class frmRegProfesor extends javax.swing.JFrame {
         //</editor-fold>
         initComponents();
         this.setLocationRelativeTo(this);
-        ManejoComp.crearVerPassword(jContra, btVer);
+        ManejoComp.crearVerPassword(txtCedula, btVer);
     }
 
     @SuppressWarnings("unchecked")
@@ -46,7 +49,7 @@ public class frmRegProfesor extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         IconCalificacion = new javax.swing.JLabel();
         lbCalificacion1 = new javax.swing.JLabel();
-        jContra = new javax.swing.JPasswordField();
+        txtCedula = new javax.swing.JPasswordField();
         btVer = new javax.swing.JToggleButton();
         btIngresar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -107,7 +110,13 @@ public class frmRegProfesor extends javax.swing.JFrame {
         lbCalificacion1.setForeground(new java.awt.Color(51, 51, 51));
         lbCalificacion1.setText("Agregar Calificaciones");
         jPanel1.add(lbCalificacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 176, -1, 32));
-        jPanel1.add(jContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 304, 224, 32));
+
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 304, 224, 32));
 
         btVer.setText("Ver");
         jPanel1.add(btVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 304, -1, -1));
@@ -146,10 +155,10 @@ public class frmRegProfesor extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void btIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIngresarActionPerformed
-        if (!(this.jContra.getText().equals(""))) {
-            boolean aux = buscarCedual(this.jContra.getText());
+        if (!(this.txtCedula.getText().equals(""))) {
+            boolean aux = buscarCedual(this.txtCedula.getText());
             if (aux == true) {
-                cedula=this.jContra.getText();
+                cedula = this.txtCedula.getText();
                 JOptionPane.showMessageDialog(null, "Bienvenido");
                 frmRegCalifi cali = new frmRegCalifi(cedula);
                 cali.setVisible(true);
@@ -161,12 +170,17 @@ public class frmRegProfesor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btIngresarActionPerformed
 
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        control.txtOnlyNumbers(evt);
+        if (txtCedula.getText().length() >= 10) {
+            evt.consume();
+        }    }//GEN-LAST:event_txtCedulaKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraSuperior;
     private javax.swing.JLabel IconCalificacion;
     private javax.swing.JButton btIngresar;
     private javax.swing.JToggleButton btVer;
-    private javax.swing.JPasswordField jContra;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -174,6 +188,7 @@ public class frmRegProfesor extends javax.swing.JFrame {
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JLabel lbCalificacion;
     private javax.swing.JLabel lbCalificacion1;
+    private javax.swing.JPasswordField txtCedula;
     // End of variables declaration//GEN-END:variables
 
     public boolean buscarCedual(String cedula) {

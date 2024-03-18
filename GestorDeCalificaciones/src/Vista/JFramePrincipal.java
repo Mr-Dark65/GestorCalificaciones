@@ -87,7 +87,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         Panel_Profesor.setBackground(new java.awt.Color(255, 255, 255));
         Panel_Profesor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        Panel_Profesor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Panel_Profesor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Panel_Profesor.setPreferredSize(new java.awt.Dimension(140, 136));
         Panel_Profesor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -136,7 +136,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         Panel_Estudiantes.setBackground(new java.awt.Color(255, 255, 255));
         Panel_Estudiantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        Panel_Estudiantes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Panel_Estudiantes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Panel_Estudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Panel_EstudiantesMouseClicked(evt);
@@ -190,7 +190,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         Panel_Calificaciones.setBackground(new java.awt.Color(255, 255, 255));
         Panel_Calificaciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        Panel_Calificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Panel_Calificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Panel_Calificaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Panel_CalificacionesMouseClicked(evt);
@@ -244,9 +244,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         Panel_Registro.setBackground(new java.awt.Color(255, 255, 255));
         Panel_Registro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        Panel_Registro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Panel_Registro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Panel_Registro.setPreferredSize(new java.awt.Dimension(140, 136));
         Panel_Registro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Panel_RegistroMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Panel_RegistroMouseEntered(evt);
             }
@@ -257,6 +260,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         IconRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registro.png"))); // NOI18N
         IconRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IconRegistroMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 IconRegistroMouseEntered(evt);
             }
@@ -376,13 +382,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void IconProfesorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconProfesorMouseClicked
         // TODO add your handling code here:
-        JFrameDocente docente = new JFrameDocente();
+        JFrameDocentes docente = new JFrameDocentes();
         docente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_IconProfesorMouseClicked
 //=======
     private void Panel_CalificacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_CalificacionesMouseClicked
-     
+        
     }//GEN-LAST:event_Panel_CalificacionesMouseClicked
 
     private void IconCalificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconCalificacionMouseClicked
@@ -390,6 +396,18 @@ public class JFramePrincipal extends javax.swing.JFrame {
         reg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_IconCalificacionMouseClicked
+
+    private void IconRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconRegistroMouseClicked
+         JFrameReportes reporte = new JFrameReportes();
+        reporte.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_IconRegistroMouseClicked
+
+    private void Panel_RegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Panel_RegistroMouseClicked
+        JFrameReportes reporte = new JFrameReportes();
+        reporte.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Panel_RegistroMouseClicked
 //>>>>>>> Calificaciones
 
     /**

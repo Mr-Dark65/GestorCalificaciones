@@ -8,13 +8,13 @@ import java.util.ArrayList;
  */
 public class Almacen {
 
-    private static Almacen instance;
+    protected static Almacen instance;
 
     public ArrayList<Estudiante> estudiantes = new ArrayList<>();
     public ArrayList<Docente> informacion = new ArrayList<>();
     public ArrayList<Materia> materias = new ArrayList<>();
 
-    private Almacen() {
+    Almacen() {
     }
 
     public static Almacen getInstance() {

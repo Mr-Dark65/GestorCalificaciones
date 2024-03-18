@@ -6,6 +6,7 @@ package Clases;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -85,6 +86,91 @@ public class Controles {
             }
         }
         return false;
+    }
+
+    public boolean validarFecha(String fechaString) {
+        int dia, mes, anio;
+        String[] fechaArray = fechaString.split("/");
+        try {
+            if (!(fechaArray.length == 3)) {
+                return false;
+            }
+            dia = Integer.parseInt(fechaArray[0]);
+            mes = Integer.parseInt(fechaArray[1]);
+            anio = Integer.parseInt(fechaArray[2]);
+        } catch (NumberFormatException e) {
+            //Formato de fechaHoy inválido. Por favor, ingrese una fechaHoy en el formato dd/mm/yyyy o d/m/yyyy
+            return false;
+        }
+        if (anio < 2023) {
+            return false;
+        }
+        if (mes >= 1 && mes <= 12) {
+
+            // Validar fecha biciesta(febrero)
+            if ((anio % 4 == 0) && ((anio % 100 != 0) || (anio % 400 == 0))) {
+                if (mes == 2 && dia >= 30) {
+                    return false;
+                }
+            } else {
+                if (mes == 2 && dia >= 29) {
+                    return false;
+                }
+            }
+
+            // Validar mes con 31 días
+            if ((mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) && dia >= 32) {
+                return false;
+            } // Validar mes con 30 días
+            else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia >= 31) {
+                return false;
+            }
+        } else if (mes > 31) {
+            mes = 0;
+            return false;
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validarNota(String nota) {
+        double notaVerificada;
+
+        try {
+            notaVerificada = Double.parseDouble(nota);
+            return notaVerificada <= 10.0;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+   public void TypingNumsDec(JTextField txt, java.awt.event.KeyEvent evt) {
+
+        char caracter = evt.getKeyChar();
+        if (!(caracter >= '0' && caracter <= '9') && caracter != '.') {
+            evt.consume();
+        }
+        if (txt.getText().contains(".") && caracter == '.') {
+            evt.consume();
+        }
+        if (txt.getText().contains(".")) {
+            if (txt.getText().length() > txt.getText().indexOf(".") + 2) {
+                evt.consume();
+            }
+            if (!(txt.getText().matches("^\\d+(\\.\\d{0,1})?$"))) {
+                evt.consume();
+            }
+        }
+
+    }
+      public boolean txtOnlyNumbers(java.awt.event.KeyEvent evt) {
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+            return false;
+        }
+        return true;
     }
 
 }

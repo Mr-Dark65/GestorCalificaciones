@@ -16,6 +16,8 @@ public class Estudiante {
     private String apellido;
     private String cedula;
     private ArrayList<String> materia;
+    private double nota;
+    private String fecha;
     
     public Estudiante(){
         materia = new ArrayList<>();
@@ -58,6 +60,26 @@ public class Estudiante {
 
     public void agregarMateria(String materias) {
         materia.add(materias);
+    }
+    public double getNota() {
+        return this.nota;
+    }
+
+    public void setNota(double nota) {
+        this.nota = nota;
+    }
+
+    public String getFecha() {
+        return this.fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" + "nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula + ", materia=" + materia + ", nota=" + nota + ", fecha=" + fecha + '}';
     }
     
     
